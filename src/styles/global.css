@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary-light: #008ef0;
+    --color-primary-medium: #002e56;
+    --color-primary-dark: #000511;    
+    --color-theme-yellow: #f4f500;
+    --color-theme-green: #009900;
+}
+
+@font-face {
+    font-family: "SourceCodePro";
+    src: url("/public/fonts/SourceCodePro-Regular.ttf.woff2") format("woff2");
+    font-weight: 400;
+    font-style: swap;
+}
+
+@font-face {
+    font-family: "SourceCodePro";
+    src: url("/public/fonts/SourceCodePro-Black.ttf.woff2") format("woff2");
+    font-weight: 800;
+    font-style: swap;
+}
+
+@font-face {
+    font-family: "SourceCodePro";
+    src: url("/public/fonts/SourceCodePro-Bold.ttf.woff2") format("woff2");
+    font-weight: 700;
+    font-style: swap;
+}
+
+@font-face {
+    font-family: "SourceCodePro";
+    src: url("/public/fonts/SourceCodePro-Light.ttf.woff2") format("woff2");
+    font-weight: 300;
+    font-style: swap;
+}
+
+html {
+    font-family: 'SourceCodePro', sans-serif;
+}

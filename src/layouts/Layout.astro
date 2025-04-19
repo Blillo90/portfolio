@@ -1,14 +1,48 @@
+---
+import './src/styles/global.css'
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const { title = "Este será mi futuro portfolio. De momento, para aprender Astro - Blillo90" } = Astro.props;
+---
 <!doctype html>
-<html lang="en">
-	<head>
+<html lang="es">
+	<head>		
 		<meta charset="UTF-8" />
+		<title>{title}</title>
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content="Aplicación web para probar y aprender a usar el framework Astro con Nodejs" />
+		<meta 
+			name="keywords" 
+			content="Astro, Nodejs, JavaScript, HTML, CSS" 
+		/>
+		
+		
+		
+		<meta 
+			property="og:title" 
+			content="Web de pruebas para aprender Astro - Blillo90" 
+		/>
+		<meta 
+			property="og:image" 
+			content="https://#" />
+			
+		
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@Blillo1990" />
+		<meta name="twitter:creator" content="@Blillo1990" />
+		<meta name="twitter:title" content="Web de pruebas para aprender Astro - Blillo90" />
+		<meta name="twitter:description" content="Aplicación web para probar y aprender a usar el framework Astro con Nodejs" />
+	
 	</head>
 	<body>
-		<slot />
+		<Header />
+			<main>
+				<slot />
+			</main>
+		<Footer />
 	</body>
 </html>
 
@@ -18,5 +52,10 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		background: #000e18;
+	}
+
+	main {
+		min-height: 100vh;
 	}
 </style>
