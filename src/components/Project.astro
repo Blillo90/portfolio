@@ -2,7 +2,20 @@
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
+// Obtenemos los proyectos desde la colección Markdown
 const projects = await getCollection("projects");
+
+// Diccionario que mapea cada estado a su icono y color
+const stateMap = {
+  "En proceso": {
+    icon: "warning",
+    color: "theme-yellow",
+  },
+  "Terminado": {
+    icon: "okay",
+    color: "theme-green",
+  },
+};
 ---
 
 <section>
@@ -11,27 +24,30 @@ const projects = await getCollection("projects");
       const { slug, data } = project;
       const { name, date, state } = data;
 
+      const { icon, color } = stateMap[state] ?? {
+        icon: "help",
+        color: "white-400",
+      };
+
       return (
-        <div x-data="{ open: false }" class="relative container mx-auto px-15 pb-15 transition-all duration-500 ease-in-out">
-          <div
-            class="flex items-center bg-primary-medium h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6"
-          >
-            <span class="font-bold text-white text-left text-2xl ml-20">
-              <p>{name}</p>
-            </span>
+        <div
+          x-data="{ open: false }"
+          x-ref="card"
+          class="relative container mx-auto px-15 pb-15 transition-all duration-500 ease-in-out"
+        >
+          {/* Tarjeta principal */}
+          <div class="flex items-center bg-primary-medium h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6">
+            <p class="font-bold text-white text-2xl ml-20">{name}</p>
+
             <div class="flex items-center justify-end w-full mr-15">
-              <Icon
-                class="mx-4 h-20 text-theme-yellow ml-55 size-10"
-                name="warning"
-              />
-              <span class="font-bold text-theme-yellow text-2xl">
-                <p>{state}</p>
-              </span>
+              <Icon class={`mx-4 size-10 h-20 ml-55 text-${color}`} name={icon} />
+              <p class={`font-bold text-${color} text-2xl`}>{state}</p>
+
               <span class="flex items-center ml-15">
                 <Icon
                   class="text-primary-light size-10 mr-5 hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click="open = !open"
+                  @click= "open = !open; if (open) { $nextTick(() => { $refs.card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }); }"
                 />
                 <Icon
                   class="text-primary-light size-10 hover:cursor-pointer hover:text-primary-lighter"
@@ -41,22 +57,21 @@ const projects = await getCollection("projects");
             </div>
           </div>
 
-          <!-- Contenido adicional que aparece al expandir -->
+          {/* Contenido desplegable */}
           <div
             x-show="open"
-            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter="transition-all duration-500 ease-out"
             x-transition:enter-start="opacity-0 max-h-0"
-            x-transition:enter-end="opacity-100 max-h-[300px]"
-            x-transition:leave="transition ease-in duration-300"
-            x-transition:leave-start="opacity-100 max-h-[300px]"
+            x-transition:enter-end="opacity-100 max-h-[500px]"
+            x-transition:leave="transition-all duration-300 ease-in"
+            x-transition:leave-start="opacity-100 max-h-[500px]"
             x-transition:leave-end="opacity-0 max-h-0"
-            class="flex items-center bg-primary-medium h-150 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6 mt-4"
+            class="overflow-hidden bg-primary-medium rounded-b-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6 mt-4 py-4"
           >
-            <p class="text-gray-700">Aquí puedes mostrar más información del proyecto, enlaces, estado, logs, etc.</p>
+            <p class="text-white">Aquí puedes mostrar más información del proyecto.</p>
           </div>
         </div>
       );
     })
   }
 </section>
-
