@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
-// Obtenemos los proyectos desde la colección Markdown
+// 1. Obtenemos la colección de proyectos
 const projects = await getCollection("projects");
 
-// Diccionario que mapea cada estado a su icono y color
+// 2. Diccionario de iconos y colores por estado
 const stateMap = {
   "En proceso": {
     icon: "warning",
@@ -16,12 +16,20 @@ const stateMap = {
     color: "theme-green",
   },
 };
+
+// 3. Renderizamos todos los contenidos markdown y los combinamos
+const projectsWithContent = await Promise.all(
+  projects.map(async (project) => {
+    const { Content } = await render(project);
+    return { ...project, Content };
+  })
+);
 ---
 
 <section>
   {
-    projects.map((project) => {
-      const { slug, data } = project;
+    projectsWithContent.map((project) => {
+      const { data, Content } = project;
       const { name, date, state } = data;
 
       const { icon, color } = stateMap[state] ?? {
@@ -35,7 +43,6 @@ const stateMap = {
           x-ref="card"
           class="relative container mx-auto px-15 pb-15 transition-all duration-500 ease-in-out"
         >
-          {/* Tarjeta principal */}
           <div class="flex items-center bg-primary-medium h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6">
             <p class="font-bold text-white text-2xl ml-20">{name}</p>
 
@@ -47,7 +54,7 @@ const stateMap = {
                 <Icon
                   class="text-primary-light size-10 mr-5 hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click= "open = !open; if (open) { $nextTick(() => { $refs.card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }); }"
+                  @click="open = !open; if (open) { $nextTick(() => { $refs.card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }); }"
                 />
                 <Icon
                   class="text-primary-light size-10 hover:cursor-pointer hover:text-primary-lighter"
@@ -57,7 +64,6 @@ const stateMap = {
             </div>
           </div>
 
-          {/* Contenido desplegable */}
           <div
             x-show="open"
             x-transition:enter="transition-all duration-500 ease-out"
@@ -68,7 +74,9 @@ const stateMap = {
             x-transition:leave-end="opacity-0 max-h-0"
             class="overflow-hidden bg-primary-medium rounded-b-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6 mt-4 py-4"
           >
-            <p class="text-white">Aquí puedes mostrar más información del proyecto.</p>
+            <div class="text-white prose prose-invert max-w-none">
+              <Content />
+            </div>
           </div>
         </div>
       );
