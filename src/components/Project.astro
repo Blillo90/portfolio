@@ -2,10 +2,8 @@
 import { Icon } from "astro-icon/components";
 import { getCollection, render } from "astro:content";
 
-// 1. Obtenemos la colección de proyectos
 const projects = await getCollection("projects");
 
-// 2. Diccionario de iconos y colores por estado
 const stateMap = {
   "En proceso": {
     icon: "warning",
@@ -17,7 +15,6 @@ const stateMap = {
   },
 };
 
-// 3. Renderizamos todos los contenidos markdown y los combinamos
 const projectsWithContent = await Promise.all(
   projects.map(async (project) => {
     const { Content } = await render(project);
@@ -30,7 +27,7 @@ const projectsWithContent = await Promise.all(
   {
     projectsWithContent.map((project) => {
       const { data, Content } = project;
-      const { name, date, state } = data;
+      const { name, date, state, img, prog_logos = [], url = [] } = data;
 
       const { icon, color } = stateMap[state] ?? {
         icon: "help",
@@ -45,16 +42,14 @@ const projectsWithContent = await Promise.all(
         >
           <div class="flex items-center bg-primary-medium h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6">
             <p class="font-bold text-white text-2xl ml-20">{name}</p>
-
-            <div class="flex items-center justify-end w-full mr-15">
+            <div class="flex items-center justify-end w-full mx-15">
               <Icon class={`mx-4 size-10 h-20 ml-55 text-${color}`} name={icon} />
               <p class={`font-bold text-${color} text-2xl`}>{state}</p>
-
               <span class="flex items-center ml-15">
                 <Icon
                   class="text-primary-light size-10 mr-5 hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click="open = !open; if (open) { $nextTick(() => { $refs.card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }); }"
+                  @click="open = !open; if (open) { $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); }); }"
                 />
                 <Icon
                   class="text-primary-light size-10 hover:cursor-pointer hover:text-primary-lighter"
@@ -65,44 +60,55 @@ const projectsWithContent = await Promise.all(
           </div>
 
           <div
-  x-show="open"
-  x-transition:enter="transition-all duration-500 ease-out"
-  x-transition:enter-start="opacity-0 max-h-0"
-  x-transition:enter-end="opacity-100 max-h-[500px]"
-  x-transition:leave="transition-all duration-300 ease-in"
-  x-transition:leave-start="opacity-100 max-h-[500px]"
-  x-transition:leave-end="opacity-0 max-h-0"
-  class="overflow-hidden bg-primary-medium rounded-b-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6 mt-4 py-4"
->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    
-    <!-- IZQUIERDA: contenido del .md -->
-    <div class="text-white prose prose-invert max-w-none justify-center items-center p-15">
-      <Content />
-      <Icon name="github" class="size-16 text-white hover:text-red-400 hover:cursor-pointer mx-auto mt-30" />
-            </div>
+            x-show="open"
+            x-transition:enter="transition-all duration-500 ease-out"
+            x-transition:enter-start="opacity-0 max-h-0"
+            x-transition:enter-end="opacity-100 max-h-[500px]"
+            x-transition:leave="transition-all duration-300 ease-in"
+            x-transition:leave-start="opacity-100 max-h-[500px]"
+            x-transition:leave-end="opacity-0 max-h-0"
+            class="overflow-hidden bg-primary-medium rounded-b-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-15 py-15"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- IZQUIERDA: contenido del .md -->
+              <div class="text-white prose prose-invert max-w-none p-4 text-justify items-center justify-center">
+                <Content />
+                {url && typeof url === "string" && (
+                    <p class="text-center mt-10"><strong>Enlace a Github: </strong></p>
+                    <a href={url} target="_blank" rel="noopener noreferrer" title="Ver repositorio en GitHub">
+                      <Icon
+                        name="github"
+                        class="size-16 text-white hover:text-red-400 hover:cursor-pointer mx-auto my-4"
+                      />
+                    </a>
+                    
+                  )}
+              </div>
 
-            <!-- DERECHA: imagen + iconos -->
-            <div class="flex flex-col items-center justify-start p-15">
-              
-              <!-- Imagen arriba -->
-              <img
-                src="/images/cookie.webp"
-                alt="Vista previa del proyecto"
-                class="w-full h-auto rounded-lg shadow-lg mb-4 max-w-[300px]"
-              />
-
-              <!-- Iconos debajo -->
-              <p class="text-white mt-5">Lenguajes usados</p>
-              <div class="flex flex-wrap justify-center gap-4 mt-2 hover:cursor-pointer background-primary-light">
-                <Icon name="html" class="size-12 text-white hover:text-primary-light" />
-                <Icon name="javascript" class="size-12 text-white hover:text-theme-green" />
-                <Icon name="css" class="size-12 text-white hover:text-red-400" />
+              <!-- DERECHA: imagen + iconos -->
+              <div class="flex flex-col items-center justify-start p-4 ml-40">
+                {img && (
+                  <img
+                    src={`/images/${img}`}
+                    alt={`Vista previa del proyecto ${name}`}
+                    class="w-full h-auto rounded-lg shadow-lg mb-4"
+                  />
+                )}
+                
+                {prog_logos.length > 0 && (
+                  <div class="flex flex-wrap justify-center items-center gap-4 mt-2 hover:cursor-pointer">
+                    {prog_logos.map((logo) => (
+                      <Icon
+                        name={logo}
+                        class="size-12 text-white hover:text-primary-light"
+                        title={logo}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </div>
-
         </div>
       );
     })
