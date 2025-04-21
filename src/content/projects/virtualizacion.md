@@ -9,7 +9,7 @@ prog_logos:
 url: https://github.com/Blillo90/virtualizacion.git
 ---
 
-Proyecto de Virtualización (a nivel sencillo) de una CPU, mediante C++ y Python, para estudiar el funcionamiento básico de una unidada de cálculo, la alocación y gestión de la memoria. Además, para comprender cómo se termina virtualizando un sistema. Por otro lado, me ayuda a familiarizarme con dos lenguajes bastante usados, C++ y Python.
+Proyecto de Virtualización (a nivel sencillo) de una CPU, mediante C++ y Python, para estudiar el funcionamiento básico de una unidad de cálculo, la alocación y gestión de la memoria. Además, para comprender cómo se termina virtualizando un sistema. Por otro lado, me ayuda a familiarizarme con dos lenguajes bastante usados, C++ y Python.
 
 <br />
 <br />

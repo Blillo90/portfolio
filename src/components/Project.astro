@@ -40,15 +40,25 @@ const projectsWithContent = await Promise.all(
           x-ref="card"
           class="relative container mx-auto px-15 pb-15 transition-all duration-500 ease-in-out"
         >
+          {/* LÁMPARAS DE NEÓN */}
+          <div
+            class="absolute -top-6 left-75 w-20 h-3 rounded-full z-10 transition-all duration-700"
+            :class="open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] opacity-100 animate-blink' : 'bg-gray-600 opacity-40 shadow-none'"
+          ></div>
+          <div
+            class="absolute -top-6 right-75 w-20 h-3 rounded-full z-10 transition-all duration-700"
+            :class="open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] opacity-100 animate-blink' : 'bg-gray-600 opacity-40 shadow-none'"
+          ></div>
+
           <div class="flex items-center bg-primary-medium h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-6">
             <p class="font-bold text-white text-2xl ml-20">{name}</p>
             <div class="flex items-center justify-end w-full mx-15">
               <Icon class={`mx-4 size-10 h-20 ml-55 text-${color}`} name={icon} />
               <p class={`font-bold text-${color} text-2xl`}>{state}</p>
               
-              <!-- Bloque de iconos con transición suave -->
+              {/* Botones de abrir/cerrar */}
               <span class="relative w-10 h-10 ml-15">
-                <!-- Icono ABRIR -->
+                {/* ABRIR */}
                 <Icon
                   x-show="!open"
                   x-transition:enter="transition-opacity duration-200"
@@ -59,10 +69,9 @@ const projectsWithContent = await Promise.all(
                   x-transition:leave-end="opacity-0"
                   class="absolute top-0 left-0 w-full h-full text-primary-light hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click= "open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); })"
+                  @click="open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); })"
                 />
-
-                <!-- Icono CERRAR -->
+                {/* CERRAR */}
                 <Icon
                   x-show="open"
                   x-transition:enter="transition-opacity duration-200"
@@ -73,7 +82,7 @@ const projectsWithContent = await Promise.all(
                   x-transition:leave-end="opacity-0"
                   class="absolute top-0 left-0 w-full h-full text-primary-light hover:cursor-pointer hover:text-red-400"
                   name="close"
-                  @click= "open = false"
+                  @click="open = false"
                 />
               </span>
             </div>
@@ -90,7 +99,7 @@ const projectsWithContent = await Promise.all(
             class="overflow-hidden bg-primary-medium rounded-b-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-15 py-15"
           >
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- IZQUIERDA: contenido del .md -->
+              {/* IZQUIERDA: contenido del .md */}
               <div class="text-white prose prose-invert max-w-none p-4 text-justify items-center justify-center">
                 <Content />
                 {url && typeof url === "string" && (
@@ -106,7 +115,7 @@ const projectsWithContent = await Promise.all(
                 )}
               </div>
 
-              <!-- DERECHA: imagen + iconos -->
+              {/* DERECHA: imagen + iconos */}
               <div class="flex flex-col items-center justify-start p-4 ml-40">
                 {img && (
                   <img
