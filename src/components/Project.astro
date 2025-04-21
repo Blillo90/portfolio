@@ -45,15 +45,35 @@ const projectsWithContent = await Promise.all(
             <div class="flex items-center justify-end w-full mx-15">
               <Icon class={`mx-4 size-10 h-20 ml-55 text-${color}`} name={icon} />
               <p class={`font-bold text-${color} text-2xl`}>{state}</p>
-              <span class="flex items-center ml-15">
+              
+              <!-- Bloque de iconos con transición suave -->
+              <span class="relative w-10 h-10 ml-15">
+                <!-- Icono ABRIR -->
                 <Icon
-                  class="text-primary-light size-10 mr-5 hover:cursor-pointer hover:text-primary-lighter"
+                  x-show="!open"
+                  x-transition:enter="transition-opacity duration-200"
+                  x-transition:enter-start="opacity-0"
+                  x-transition:enter-end="opacity-100"
+                  x-transition:leave="transition-opacity duration-150"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  class="absolute top-0 left-0 w-full h-full text-primary-light hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click="open = !open; if (open) { $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); }); }"
+                  @click= "open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); })"
                 />
+
+                <!-- Icono CERRAR -->
                 <Icon
-                  class="text-primary-light size-10 hover:cursor-pointer hover:text-primary-lighter"
+                  x-show="open"
+                  x-transition:enter="transition-opacity duration-200"
+                  x-transition:enter-start="opacity-0"
+                  x-transition:enter-end="opacity-100"
+                  x-transition:leave="transition-opacity duration-150"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  class="absolute top-0 left-0 w-full h-full text-primary-light hover:cursor-pointer hover:text-red-400"
                   name="close"
+                  @click= "open = false"
                 />
               </span>
             </div>
@@ -74,6 +94,7 @@ const projectsWithContent = await Promise.all(
               <div class="text-white prose prose-invert max-w-none p-4 text-justify items-center justify-center">
                 <Content />
                 {url && typeof url === "string" && (
+                  <>
                     <p class="text-center mt-10"><strong>Enlace a Github: </strong></p>
                     <a href={url} target="_blank" rel="noopener noreferrer" title="Ver repositorio en GitHub">
                       <Icon
@@ -81,8 +102,8 @@ const projectsWithContent = await Promise.all(
                         class="size-16 text-white hover:text-red-400 hover:cursor-pointer mx-auto my-4"
                       />
                     </a>
-                    
-                  )}
+                  </>
+                )}
               </div>
 
               <!-- DERECHA: imagen + iconos -->
