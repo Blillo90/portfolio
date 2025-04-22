@@ -41,19 +41,19 @@ const projectsWithContent = await Promise.all(
         <div
           x-data="{ open: false }"
           x-ref="card"
-          class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-15 transition-all duration-500 ease-in-out"
+          class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-15 ease-in-out"
         >
           {/* LÁMPARAS DE NEÓN */}
           <div
             x-ref="lampLeft"
             class="absolute -top-6 left-1/4 w-35 h-3 rounded-full z-10 transition-all duration-700"
-            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] opacity-100 animate-blink' : 'bg-gray-600 opacity-40 shadow-none'"
+            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
           ></div>
           
           <div
             x-ref="lampRight"
             class="absolute -top-6 right-1/4 w-35 h-3 rounded-full z-10 transition-all duration-700"
-            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] opacity-100 animate-blink' : 'bg-gray-600 opacity-40 shadow-none'"
+            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
           ></div>
 
           <div class="flex flex-wrap items-center justify-between bg-primary-medium h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-4 sm:px-6 py-4 gap-4">
@@ -149,22 +149,5 @@ const projectsWithContent = await Promise.all(
         </div>
       );
     })
-  }
-  <style>
-    @keyframes blink {
-      0% { opacity: 0.2; }
-      20% { opacity: 1; }
-      40% { opacity: 0.1; }
-      60% { opacity: 1; }
-      80% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-    .blink {
-      animation: blink 2.5s ease-out forwards;
-    }
-    </style>
-    
-    <div class="w-20 h-5 bg-blue-100 rounded-full mt-10 blink"></div>
-    
-
+  } 
 </section>

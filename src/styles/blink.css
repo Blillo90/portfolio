@@ -1,23 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer utilities {
     @keyframes blink {
-      0% { opacity: 0; box-shadow: none; }
-      5% { opacity: 1; box-shadow: 0 0 20px #ccfaff; }
-      8% { opacity: 0; box-shadow: none; }
-      10% { opacity: 1; box-shadow: 0 0 12px #ccfaff; }
-      13% { opacity: 0; box-shadow: none; }
-      15% { opacity: 1; box-shadow: 0 0 24px #ccfaff; }
-      20% { opacity: 0.1; box-shadow: 0 0 2px #ccfaff; }
-      22% { opacity: 1; box-shadow: 0 0 14px #ccfaff; }
-      25% { opacity: 0; box-shadow: none; }
-      30% { opacity: 1; box-shadow: 0 0 26px #ccfaff; }
-      32% { opacity: 0.2; box-shadow: 0 0 4px #ccfaff; }
-      35% { opacity: 1; box-shadow: 0 0 28px #ccfaff; }
-      40% { opacity: 0; box-shadow: none; }
-      100% { opacity: 1; box-shadow: 0 0 28px #ccfaff, 0 0 40px #ccfaff; }
-    }
-  
-    .animate-blink {
-      animation: blink 2s steps(1, end) forwards;
-    }
+        0%   { opacity: 0; box-shadow: none; }
+        3%   { opacity: 1; box-shadow: 0 0 20px #ccfaff; }
+        6%   { opacity: 0; box-shadow: none; }
+        9%   { opacity: 1; box-shadow: 0 0 24px #ccfaff; }
+        12%  { opacity: 0; box-shadow: none; }
+        15%  { opacity: 1; box-shadow: 0 0 28px #ccfaff; }
+        18%  { opacity: 0; box-shadow: none; }
+      
+        /* 🔌 Apagón */
+        30%  { opacity: 0; box-shadow: none; }
+        40%  { opacity: 1; box-shadow: 0 0 28px #ccfaff; }
+        50%  { opacity: 0; box-shadow: none; }
+
+      
+        /* 💡 Encendido estable */
+        60%  { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; }
+        100% { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; }
+      }
+      
+
+  .animate-blink {
+    animation: blink 3.5s steps(20, end) forwards;
   }
-  
+}
