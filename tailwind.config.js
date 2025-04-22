@@ -6,6 +6,7 @@ export default {
     "text-theme-green",
     "text-theme-yellow",
     "text-gray-400",
+    "animate-blink",
   ],
   theme: {
     extend: {
@@ -19,18 +20,27 @@ export default {
       },
       keyframes: {
         blink: {
-          '0%, 100%': { opacity: '0.9' },
-          '10%': { opacity: '0.2' },
-          '20%': { opacity: '0.7' },
-          '30%': { opacity: '0.3' },
-          '40%': { opacity: '0.8' },
-          '50%': { opacity: '1' },
-          '60%': { opacity: '0.5' },
-          '70%, 100%': { opacity: '1' },
-        },
+          '0%':   { opacity: '0' },
+          '5%':   { opacity: '0.3' },
+          '10%':  { opacity: '0.1' },
+          '15%':  { opacity: '0.6' },
+          '20%':  { opacity: '0.2' },
+          '25%':  { opacity: '0.8' },
+          '30%':  { opacity: '0.1' },
+          '35%':  { opacity: '1' },
+          '40%':  { opacity: '0.3' },
+          '45%':  { opacity: '1' },
+          '50%':  { opacity: '0.2' },
+          '60%':  { opacity: '1' },
+          '70%':  { opacity: '0.9' },
+          '80%':  { opacity: '1' },
+          '90%':  { opacity: '1' },
+          '100%': { opacity: '1' },
+        }
       },
+      
       animation: {
-        blink: 'blink 1.5s ease-out forwards',
+        blink: 'blink 2.5s ease-out forwards',
       },
     },
   },

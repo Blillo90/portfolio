@@ -42,11 +42,14 @@ const projectsWithContent = await Promise.all(
         >
           {/* LÁMPARAS DE NEÓN */}
           <div
-            class="absolute -top-6 left-1/4 w-20 h-3 rounded-full z-10 transition-all duration-700"
+            x-ref="lampLeft"
+            class="absolute -top-6 left-1/4 w-35 h-3 rounded-full z-10 transition-all duration-700"
             :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] opacity-100 animate-blink' : 'bg-gray-600 opacity-40 shadow-none'"
           ></div>
+          
           <div
-            class="absolute -top-6 right-1/4 w-20 h-3 rounded-full z-10 transition-all duration-700"
+            x-ref="lampRight"
+            class="absolute -top-6 right-1/4 w-35 h-3 rounded-full z-10 transition-all duration-700"
             :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] opacity-100 animate-blink' : 'bg-gray-600 opacity-40 shadow-none'"
           ></div>
 
@@ -69,7 +72,8 @@ const projectsWithContent = await Promise.all(
                   x-transition:leave-end="opacity-0"
                   class="absolute top-0 left-0 w-full h-full text-primary-light hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click= "open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); })"
+                  @click="open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); [$refs.lampLeft, $refs.lampRight].forEach(lamp => { lamp.classList.remove('animate-blink'); void lamp.offsetWidth; lamp.classList.add('animate-blink'); }); });"
+
                 />
                 {/* CERRAR */}
                 <Icon
@@ -143,4 +147,21 @@ const projectsWithContent = await Promise.all(
       );
     })
   }
+  <style>
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      20% { opacity: 1; }
+      40% { opacity: 0.1; }
+      60% { opacity: 1; }
+      80% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    .blink {
+      animation: blink 2.5s ease-out forwards;
+    }
+    </style>
+    
+    <div class="w-20 h-5 bg-blue-100 rounded-full mt-10 blink"></div>
+    
+
 </section>
