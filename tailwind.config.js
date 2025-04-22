@@ -40,7 +40,7 @@ export default {
       },
       
       animation: {
-        blink: 'blink 2.5s ease-out forwards',
+        blink: 'blink 2.5s ease-in-out infinite',
       },
     },
   },

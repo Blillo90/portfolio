@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @theme {
     --color-primary-lighter: #a3d9ff;
     --color-primary-light: #008ef0;

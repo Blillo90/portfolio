@@ -1,6 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import { getCollection, render } from "astro:content";
+import '/src/styles/blink.css'
+
 
 const projects = await getCollection("projects");
 
@@ -24,6 +26,7 @@ const projectsWithContent = await Promise.all(
 ---
 
 <section>
+  
   {
     projectsWithContent.map((project) => {
       const { data, Content } = project;
