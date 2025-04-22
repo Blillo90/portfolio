@@ -6,8 +6,6 @@
     @keyframes blink {
         0%   { opacity: 0; box-shadow: none; }
         3%   { opacity: 1; box-shadow: 0 0 20px #ccfaff; }
-        6%   { opacity: 0; box-shadow: none; }
-        9%   { opacity: 1; box-shadow: 0 0 24px #ccfaff; }
         12%  { opacity: 0; box-shadow: none; }
         15%  { opacity: 1; box-shadow: 0 0 28px #ccfaff; }
         18%  { opacity: 0; box-shadow: none; }
