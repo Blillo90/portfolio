@@ -1,27 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer utilities {
     @keyframes blink {
-        0%   { opacity: 0; box-shadow: none; }
-        3%   { opacity: 1; box-shadow: 0 0 20px #ccfaff; }
-        12%  { opacity: 0; box-shadow: none; }
-        15%  { opacity: 1; box-shadow: 0 0 28px #ccfaff; }
-        18%  { opacity: 0; box-shadow: none; }
-      
-        /* 🔌 Apagón */
-        
-        50%  { opacity: 0; box-shadow: none; }
-
-      
-        /* 💡 Encendido estable */
-        60%  { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; }
-        100% { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; }
-      }
-      
-
-  .animate-blink {
-    animation: blink 3.5s steps(20, end) forwards;
+      0%   { opacity: 0; box-shadow: none; filter: brightness(1); }
+      3%   { opacity: 1; box-shadow: 0 0 20px #ccfaff; filter: brightness(1); }
+      12%  { opacity: 0; box-shadow: none; filter: brightness(1); }
+      15%  { opacity: 1; box-shadow: 0 0 28px #ccfaff; filter: brightness(1); }
+      18%  { opacity: 0; box-shadow: none; filter: brightness(1); }
+  
+      /* 🔌 Apagón */
+      50%  { opacity: 0; box-shadow: none; filter: brightness(1); }
+  
+      /* ⚡ ZAS: golpe de brillo al encenderse */
+      60%  { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; filter: brightness(1.6); }
+  
+      /* 💡 Se estabiliza el brillo */
+      80%  { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; filter: brightness(1.2); }
+      100% { opacity: 1; box-shadow: 0 0 32px #ccfaff, 0 0 48px #ccfaff; filter: brightness(1); }
+    }
+  
+    .animate-blink {
+      animation: blink 3.5s steps(20, end) forwards;
+    }
   }
-}
+  
