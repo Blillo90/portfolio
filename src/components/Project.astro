@@ -17,12 +17,22 @@ const stateMap = {
   },
 };
 
+const estadoOrden = {
+  "En proceso": 0,
+  "Terminado": 1,
+};
+
+projects.sort((a, b) => {
+  return (estadoOrden[a.data.state] ?? 99) - (estadoOrden[b.data.state] ?? 99);
+});
+
 const projectsWithContent = await Promise.all(
   projects.map(async (project) => {
     const { Content } = await render(project);
     return { ...project, Content };
   })
 );
+
 ---
 
 <section>
@@ -46,17 +56,18 @@ const projectsWithContent = await Promise.all(
           {/* LÁMPARAS DE NEÓN */}
           <div
             x-ref="lampLeft"
-            class="absolute -top-6 left-1/4 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
+            class="absolute -top-0 left-1/4 mt-2 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
             :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
           ></div>
           
           <div
             x-ref="lampRight"
-            class="absolute -top-6 right-1/4 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
+            class="absolute -top-0 right-1/4 mt-2 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
             :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
           ></div>
 
           <div class="flex flex-wrap items-center justify-between bg-primary-medium py-5 md:py-0 h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-4 sm:px-6 py-4 gap-4">
+            
             <p class="font-bold text-white text-lg sm:text-2xl">{name}</p>
             <div class="flex items-center gap-4 ml-auto">
               <Icon class={`size-8 md:size-10 text-${color}`} name={icon} />
