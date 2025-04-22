@@ -1,5 +1,5 @@
 ---
-name: Portfolio (esta aplicación Web)
+name: Portfolio (aplicación Web)
 date: 2025/04
 state: En proceso
 img: portfolio.webp
