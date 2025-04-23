@@ -53,25 +53,14 @@ const projectsWithContent = await Promise.all(
           x-ref="card"
           class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-15 ease-in-out"
         >
-          {/* LÁMPARAS DE NEÓN */}
-          <div
-            x-ref="lampLeft"
-            class="absolute -top-0 left-1/4 mt-2 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
-            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
-          ></div>
           
-          <div
-            x-ref="lampRight"
-            class="absolute -top-0 right-1/4 mt-2 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
-            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
-          ></div>
 
           <div class="flex flex-wrap items-center justify-between bg-primary-medium py-5 md:py-0 h-30 rounded-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-4 sm:px-6 py-4 gap-4">
-            
+
             <p class="font-bold text-white text-lg sm:text-2xl">{name}</p>
             <div class="flex items-center gap-4 ml-auto">
               <Icon class={`size-8 md:size-10 text-${color}`} name={icon} />
-              <p class={`font-bold text-${color} text-lg sm:text-2xl`}>{state}</p>
+              <p class={`font-bold text-${color} mr-20 text-lg sm:text-2xl`}>{state}</p>
 
               {/* Botones de abrir/cerrar */}
               <span class="relative w-10 h-10">
@@ -86,7 +75,7 @@ const projectsWithContent = await Promise.all(
                   x-transition:leave-end="opacity-0"
                   class="absolute top-0 left-0 w-full h-full text-primary-light hover:cursor-pointer hover:text-primary-lighter"
                   name="window_open"
-                  @click="open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); [$refs.lampLeft, $refs.lampRight].forEach(lamp => { lamp.classList.remove('animate-blink'); void lamp.offsetWidth; lamp.classList.add('animate-blink'); }); });"
+                  @click= "open = true; $nextTick(() => { const top = $refs.card.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); [$refs.lampLeft, $refs.lampRight].forEach(lamp => { lamp.classList.remove('animate-blink'); void lamp.offsetWidth; lamp.classList.add('animate-blink'); }); });"
 
                 />
                 {/* CERRAR */}
@@ -116,7 +105,19 @@ const projectsWithContent = await Promise.all(
             x-transition:leave-end="opacity-0 max-h-0"
             class="overflow-hidden bg-primary-medium rounded-b-2xl ring-6 ring-primary-light shadow-[0px_0px_24px_10px_#008ef0] px-4 sm:px-6 py-8"
           >
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* LÁMPARAS DE NEÓN */}
+            <div
+            x-ref="lampLeft"
+            class="absolute -top-0 left-1/4 mt-35 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
+            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
+              ></div>
+          
+            <div
+            x-ref="lampRight"
+            class="absolute -top-0 right-1/4 mt-35 w-20 md:w-35 h-3 rounded-full z-10 transition-all duration-700"
+            :class= "open ? 'bg-blue-100 shadow-[0_0_6px_#ccfaff,0_0_12px_#ccfaff] animate-blink' : 'bg-gray-600 shadow-none'"
+              ></div>
+            <div class="flex flex-col p-15">
               {/* IZQUIERDA: contenido del .md */}
               <div class="text-white prose prose-invert max-w-none p-4 text-justify items-center justify-center">
                 <Content />
