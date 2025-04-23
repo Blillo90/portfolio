@@ -1,0 +1,57 @@
+---
+const email = "ppherrero90@gmail.com";
+
+---
+
+<div class="flex items-center gap-4 relative">
+  <input
+    id="emailField"
+    type="text"
+    value={email}
+    readonly
+    class="px-4 py-2 w-75 text-lg rounded-lg border-2 border-blue-500 bg-black text-primary-light shadow-[0_0_10px_rgba(0,255,255,0.7)] animate-neon-flicker"
+  />
+  
+  <div class="relative">
+    <button
+      id="copyBtn"
+      class="px-4 py-2 bg-primary-light text-white rounded-lg hover:bg-primary-lighter hover:cursor-pointer transition duration-200 shadow-md"
+    >
+      Copiar
+    </button>
+
+    <!-- Tooltip -->
+    <span
+      id="tooltip"
+      class="absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white text-sm px-3 py-1 rounded-md shadow-md opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      ¡Copiado!
+    </span>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copyBtn');
+    const input = document.getElementById('emailField');
+    const tooltip = document.getElementById('tooltip');
+
+    copyBtn?.addEventListener('click', () => {
+      if (input instanceof HTMLInputElement) {
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+
+        // Mostrar tooltip
+        tooltip!.classList.remove('opacity-0');
+        tooltip!.classList.add('opacity-100');
+
+        // Ocultar después de 2 segundos
+        setTimeout(() => {
+          tooltip!.classList.remove('opacity-100');
+          tooltip!.classList.add('opacity-0');
+        }, 2000);
+      }
+    });
+  });
+</script>

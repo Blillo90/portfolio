@@ -5,7 +5,7 @@
     }
   
     .animate-cursor-blink {
-      animation: cursor-blink 1s steps(2, start) infinite;
+      animation: cursor-blink 1s steps(1, start) infinite;
     }
   }
   
