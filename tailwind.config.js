@@ -7,6 +7,7 @@ export default {
     "text-theme-yellow",
     "text-gray-400",
     "animate-blink",
+    "animate-cursor-blink",
   ],
   theme: {
     extend: {
