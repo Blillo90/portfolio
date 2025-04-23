@@ -3,21 +3,20 @@ import '/src/styles/cursor.css'
 import '/src/styles/global.css'
 ---
 
-<header class="w-full py-4 px-6 bg-[#000e18] flex items-center justify-center relative">
-  <nav class="hidden md:flex gap-6 text-white text-xl font-semibold">
+<header class="w-full py-10 px-6 bg-[#000e18] flex items-center justify-end relative overflow-hidden">
+  
+  <!-- Luz azul clara vertical recta -->
+  <div class="absolute inset-0 pointer-events-none z-0 
+              bg-gradient-to-b from-[#002e56] to-transparent 
+              opacity-100 mix-blend-lighten">
+  </div>
+
+  <nav class="hidden md:flex gap-6 text-white text-xl font-semibold z-10 relative">
 
     <a href="#projects"
        class="group px-20 transition-colors flex items-center gap-1">
       <span class="group-hover:underline group-hover:decoration-primary-light group-hover:underline-offset-[10px] group-hover:decoration-[3px]">
         Proyectos:
-      </span>
-      <span class="hidden group-hover:inline-block animate-cursor-blink">|</span>
-    </a>
-
-    <a href="#about"
-       class="group px-20 transition-colors flex items-center gap-1">
-      <span class="group-hover:underline group-hover:decoration-primary-light group-hover:underline-offset-[10px] group-hover:decoration-[3px]">
-        Sobre mí:
       </span>
       <span class="hidden group-hover:inline-block animate-cursor-blink">|</span>
     </a>
@@ -32,3 +31,4 @@ import '/src/styles/global.css'
 
   </nav>
 </header>
+
